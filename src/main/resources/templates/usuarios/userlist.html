@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Usuarios</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header .logout {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .main {
+            display: flex;
+            flex: 1;
+            margin-top: 60px; /* Increase margin to accommodate fixed header */
+            background-color: inherit;
+        }
+        .sidebar {
+            background-color: #333;
+            margin-top: 0;
+            width: 200px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding-top: 60px; /* Adjust padding to match header height */
+            position: fixed;
+            height: 100vh;
+            top: 0;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            padding: 20px 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a img {
+            margin-right: 10px;
+            max-width: 24px;
+        }
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        .content {
+            flex: 1;
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg'); /* Cambia esta línea */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            margin-left: 200px; /* Add margin to accommodate sidebar width */
+            display: flex;
+            justify-content: center;
+        }
+        .section {
+            width: 100%;
+            max-width: 1050px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+        .section table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 15px;
+        }
+        .section th, .section td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .section th {
+            background-color: #f2f2f2;
+        }
+        .section tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section tr:hover {
+            background-color: #ddd;
+        }
+        .section td {
+            text-align: center;
+        }
+        .section td a {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .section td a.edit {
+            background-color: #28a745;
+        }
+        .section td a.delete {
+            background-color: #dc3545;
+        }
+        .section td a:hover {
+            text-decoration: none;
+        }
+        .section td a.edit:hover {
+            background-color: #0056b3;
+        }
+        .section td a.delete:hover {
+            background-color: #c82333;
+        }
+        .section .create-link {
+            margin-top: 10px;
+        }
+        .create-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #b10000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+        }
+        .create-link:hover {
+            background-color: #0056b3;
+        }
+        .action-button {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .action-button.edit {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .action-button.delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Panel Administrador</h1>
+            <a th:href="@{/}" class="logout">Cerrar sesión</a>
+        </header>
+        <div class="main">
+            <nav class="sidebar">
+                <ul>
+                    <li><a th:href="@{/admin/list}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Administradores</a></li>
+                    <li><a th:href="@{/usuarios/}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Usuarios</a></li>
+                    <li><a th:href="@{/libros}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Libros</a></li>
+                    <li><a th:href="@{/prestamos}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Préstamos</a></li>
+                </ul>
+            </nav>
+            <section class="content">
+                <div class="section">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Lista de Usuarios</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Documento</th>
+                                <th>Número de Documento</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Celular</th>
+                                <th>Correo</th>
+                                <th>Estado</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="usuario : ${usuarios}">
+                                <td th:text="${usuario.tipoDocumento}"></td>
+                                <td th:text="${usuario.numeroDocumento}"></td>
+                                <td th:text="${usuario.nombres}"></td>
+                                <td th:text="${usuario.apellidos}"></td>
+                                <td th:text="${usuario.celular}"></td>
+                                <td th:text="${usuario.correo}"></td>
+                                <td th:text="${usuario.estado}"></td>
+                                <td><a th:href="@{/usuarios/edit/{id}(id=${usuario.id})}" class="edit">Editar</a></td>
+								<td>
+            						<a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}" class="delete" id="'deleteUsuario_' + ${iterStat.index}" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">Eliminar</a>
+        						</td>                            
+        					</tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: center;">
+            <a class="create-link" th:href="@{/usuarios/new}">Agregar Usuario</a>
+        </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script>
+document.getElementById('deleteUsuario').onclick = function() {
+    return confirm('¿Estás seguro de que quieres eliminar este usuario?');
+};
+</script>
+</body>
+</html>

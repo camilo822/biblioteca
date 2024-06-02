@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Libros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Styles from the second code snippet */
+        .navbar-social {
+            background-color: #7f0000;
+            color: white;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-social a {
+            color: white;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        .navbar-social .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-main {
+            background-color: #b10000;
+            color: white;
+        }
+        .navbar-main .navbar-nav .nav-link {
+            color: white;
+            margin-right: 10px;
+        }
+        .navbar-main .navbar-brand img {
+            height: 40px;
+        }
+        .search-bar input {
+            max-width: 200px;
+        }
+        .search-bar button {
+            background-color: #fff;
+            border: none;
+            color: #000;
+        }
+        .cart-icon {
+            color: white;
+        }
+        .navbar-main .navbar-nav .nav-item {
+            margin-right: 0.5rem;
+        }
+        .navbar-main .navbar-nav .nav-link {
+            padding-right: 0.5rem;
+        }
+        .search-bar {
+            max-width: 300px;
+        }
+        
+        /* Additional styles for the book list page */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+             background-image: url('https://img.freepik.com/vector-gratis/fondo-futurista-degradado-concepto-conexion_23-2149101395.jpg?t=st=1717250818~exp=1717254418~hmac=bb382af9678add350f29045101992a7d305eb1601b5a40016e6214ccd7207f1e&w=740');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .libro-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .libro-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .libro-card:hover {
+            transform: translateY(-10px);
+        }
+        .libro-card img {
+            border-radius: 10px;
+            height: 250px;
+            width: 150px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .libro-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .libro-author {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .filtro-container {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+        .filtro-container select {
+            padding: 8px;
+            font-size: 14px;
+        }
+        .filtro-container button, .filtro-container .reset-button {
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .filtro-container .reset-button {
+            margin-left: 10px;
+        }
+        
+        /* Additional styles to prevent link highlighting */
+        .libro-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .libro-card a:hover, .libro-card a:focus, .libro-card a:active {
+            text-decoration: none;
+            color: inherit;
+        }
+       
+    /* footer */
+
+/* footer */
+
+footer {
+    background: #414141;
+    padding: 60px 0 30px 0;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 80px; /* Ajusta este valor según sea necesario */
+}
+
+
+.contenedor-footer{
+    display: flex;
+    width: 90%;
+    justify-content: space-evenly;
+    margin: auto;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #ccc;
+}
+
+.content-foo{
+    text-align: center;
+}
+
+.content-foo h4{
+    color: #fff;
+    border-bottom: 3px solid #B10000;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.content-foo p{
+    color: #ccc;
+}
+
+.titulo-final{
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0 0 0;
+    color: #9e9797;
+}
+    
+
+    </style>
+</head>
+<body>
+    <!-- Social Menu -->
+    <nav class="navbar navbar-expand-lg navbar-social">
+        <div class="container-fluid">
+            <div class="navbar-nav mr-auto">
+                <a class="nav-link" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a class="nav-link" href="https://x.com/?lang=es" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a class="nav-link" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="navbar-nav ml-auto">
+                <span>|</span>
+                <div class="dropdown">
+                    <a class="nav-link" th:href="@{/}"><i class="fas fa-user"></i> Cerrar sesión</a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Menu -->
+    <nav class="navbar navbar-expand-lg navbar-main">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ml-auto d-flex align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/libros/ver}">Libros</a>
+                    </li>
+                     
+                    <form class="form-inline my-2 my-lg-0 search-bar ml-2">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--  <h1>Lista de Libros</h1>-->
+    <div class="filtro-container">
+        <form th:action="@{/libros/filtrar}" method="get">
+            <select name="genero">
+            <option value="">Todos los generos</option>
+                <option value="Ficcion">Ficcion</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Biografia">Biografia</option>
+                <option value="Novela">Novela</option>
+            </select>
+            <select name="autor">
+                <option value="">Todos los autores</option>
+                <option value="Luis Miguel">Luis Miguel</option>
+                <option value="Ángel">Ángel</option>
+                <option value="Gabriel García Márquez">Gabriel García Márquez</option>
+                <option value="José Antonio">José Antonio</option>
+                 <option value="Paco Ignacio">Paco Ignacio</option>
+                 <option value="Joseph Conrad">Joseph Conrad</option>
+                 <option value="Anthony McGowan">Anthony McGowan</option>
+            </select>
+            <button type="submit">Filtrar</button>
+            <a th:href="@{/libros/reset-filtroVer}" class="reset-button">Resetear Filtros</a>
+        </form>
+    </div>
+    <div class="libro-container">
+        <div class="libro-card" th:each="libro : ${libros}">
+            <a th:href="@{/libros/detalle/{id}(id=${libro.id})}">
+                <img th:src="${libro.imagenUrl}" alt="Imagen del libro">
+                <div class="libro-title" th:text="${libro.titulo}"></div>
+                <div class="libro-author" th:text="${libro.autor}"></div>
+            </a>
+        </div>
+    </div>
+    <footer>
+        <div class="contenedor-footer">
+            <div class="content-foo">
+                <h4>Nombre</h4>
+                <p>Bibliocosmos</p>
+            </div>
+            <div class="content-foo">
+                <h4>Contacto</h4>
+                <p>829631222</p>
+            </div>
+            <div class="content-foo">
+                <h4>Correo</h4>
+                <p>ContactoBiblioteca@gmail.com.123</p>
+            </div>
+        </div>
+        <h2 class="titulo-final">&copy; Camilo Marquez | Omar Castro</h2>
+    </footer>
+</body>
+</html>

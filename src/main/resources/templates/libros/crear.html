@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Libro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://cdn.pixabay.com/photo/2024/04/17/07/05/ai-generated-8701501_1280.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(28, 28, 28, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 16px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+        }
+
+        button {
+            width: 30%;
+            background-color: #B10000;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #A50105;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/libros}" th:object="${libro}" method="post">
+        <h1>Editar Libro</h1>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required>
+        <br>
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" th:field="*{autor}" required>
+        <br>
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" th:field="*{genero}" required>
+        <br>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}" required></textarea>
+        <br>
+        <label for="imagenUrl">URL de la Imagen:</label>
+        <input type="text" id="imagenUrl" th:field="*{imagenUrl}">
+        <br>
+        <label for="editorial">Editorial:</label>
+        <input type="text" id="editorial" th:field="*{editorial}">
+        <br>
+        <label for="anoPublicacion">Año de Publicación:</label>
+        <input type="number" id="anoPublicacion" th:field="*{anoPublicacion}">
+        <br>
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" th:field="*{isbn}">
+        <br>
+        <label for="presentacion">Presentación:</label>
+        <input type="text" id="presentacion" th:field="*{presentacion}">
+        <br>
+        <label for="numeroPaginas">Número de Páginas:</label>
+        <input type="number" id="numeroPaginas" th:field="*{numeroPaginas}">
+        <br>
+        <label for="edades">Edades Recomendadas:</label>
+        <input type="text" id="edades" th:field="*{edades}">
+        <br>
+        <div style="text-align: center;">
+        <button type="submit">Guardar</button>
+        </div>
+        <a th:href="@{/libros}">Volver a la lista de libros</a>
+    </form>
+</body>
+</html>
