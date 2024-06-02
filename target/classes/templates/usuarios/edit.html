@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/25/books-2599279_1280.jpg'); /* Cambia esta línea */
+            background-size: cover;
+            background-position: center;
+            padding: 20px 0; /* Añadir más espacio vertical */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Usar min-height para ocupar toda la altura de la pantalla */
+            margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+        }
+        form {
+            width: 100%;
+            max-width: 450px; /* Ajustar el ancho máximo del formulario */
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px; /* Añadir margen alrededor del formulario */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #B10000;
+        }
+        input[type="text"], input[type="email"], input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6"><path d="M6 0l6 6H0z" fill="%23000"/></svg>') no-repeat right 10px center/8px 10px, linear-gradient(#f8f9fa,#f8f9fa) no-repeat left center/100% 2px;
+            padding-right: 25px;
+        }
+        button[type="submit"] {
+            background-color: #B10000;
+            color: #fff;
+            border: none;
+            padding: 12px 50px; /* Ajustar el padding horizontal para centrar mejor */
+            text-align: center;
+            text-decoration: none;
+            display: block; /* Convertir el botón en un bloque para centrarlo */
+            margin: 0 auto; /* Margen automático para centrar horizontalmente */
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #7F0000;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        a {
+            display: block;
+            margin: 20px auto 0; /* Margen automático arriba y abajo, centrado horizontalmente */
+            text-decoration: none;
+            color: #007bff;
+            width: fit-content; /* Ajustar el ancho al contenido */
+            text-align: center; /* Alinear el texto al centro */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/usuarios/update/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
+        <h1>Editar Usuario</h1>
+        <div class="form-group">
+            <label>Nombres:</label>
+            <input type="text" th:field="*{nombres}" placeholder="Ingrese sus nombres" required>
+        </div>
+        <div class="form-group">
+            <label>Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" placeholder="Ingrese sus apellidos" required>
+        </div>
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="email" th:field="*{correo}" placeholder="Ingrese su correo electrónico" required>
+        </div>
+        <div class="form-group">
+            <label>Celular:</label>
+            <input type="text" th:field="*{celular}" placeholder="Ingrese su número de celular">
+        </div>
+        <div class="form-group">
+            <label>Tipo de Documento:</label>
+            <select th:field="*{tipoDocumento}">
+                <option value="DNI">CC</option>
+                <option value="Pasaporte">Pasaporte</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Número de Documento:</label>
+            <input type="text" th:field="*{numeroDocumento}" placeholder="Ingrese su número de documento">
+        </div>
+        <div class="form-group">
+            <label>Estado:</label>
+            <select th:field="*{estado}">
+                <option value="Activo" th:selected="${usuario.estado == 'Activo'}">Activo</option>
+                <option value="Inactivo" th:selected="${usuario.estado == 'Inactivo'}">Inactivo</option>
+                
+                <!-- Ajusta las opciones según los estados que manejes -->
+            </select>
+        </div>
+        <button type="submit">Actualizar</button>
+        <a th:href="@{/usuarios/}">Cancelar</a>
+    </form>
+</body>
+</html>

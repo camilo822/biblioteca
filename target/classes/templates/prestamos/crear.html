@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Préstamo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-image: url('https://cdn.pixabay.com/photo/2016/02/01/00/56/news-1172462_1280.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 20px;
+            color: #B10000;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .readonly {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/prestamos/create}" th:object="${prestamo}" method="post">
+        <h1>Nuevo Préstamo</h1>
+        <div>
+            <label>Título del Libro:</label>
+            <input type="text" th:field="*{tituloLibro}" readonly class="readonly" />
+        </div>
+        <div>
+            <label>Autor del Libro:</label>
+            <input type="text" th:field="*{autorLibro}" readonly class="readonly" />
+        </div>
+        <div>
+            <label>Editorial del Libro:</label>
+            <input type="text" th:field="*{editorialLibro}" readonly class="readonly" />
+        </div>
+        <div>
+            <label>ISBN del Libro:</label>
+            <input type="text" th:field="*{isbnLibro}" readonly class="readonly" />
+        </div>
+        <div>
+            <label>Nombre del Solicitante:</label>
+            <input type="text" th:field="*{nombreSolicitante}" required />
+        </div>
+        <div>
+            <label>Número de Identificación:</label>
+            <input type="text" th:field="*{numeroIdentificacion}" required />
+        </div>
+        <div>
+            <label>Correo Electrónico:</label>
+            <input type="email" th:field="*{correoElectronico}" required />
+        </div>
+        <div>
+            <label>Teléfono de Contacto:</label>
+            <input type="text" th:field="*{telefonoContacto}" required />
+        </div>
+        <div>
+            <label>Fecha de Solicitud:</label>
+            <input type="text" th:field="*{fechaSolicitud}" readonly class="readonly" />
+        </div>
+        <div>
+            <label>Fecha de Inicio del Préstamo:</label>
+            <input type="date" th:field="*{fechaInicioPrestamo}" required />
+        </div>
+        <div>
+            <label>Duración del Préstamo (días):</label>
+            <input type="number" th:field="*{duracionPrestamo}" required />
+        </div>
+        <div>
+            <button type="submit">Crear Préstamo</button>
+        </div>
+    </form>
+</body>
+</html>

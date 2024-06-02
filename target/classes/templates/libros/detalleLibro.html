@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Libro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+             background-image: url('https://img.freepik.com/vector-gratis/fondo-particulas-tecnologia-realista_23-2148409680.jpg?t=st=1717248967~exp=1717252567~hmac=146594ed30aec4b3addad08067d79b5ec1b386938d0fd353a113f8dbedb6d819&w=740');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+        .libro-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .libro-card {
+            display: flex;
+            align-items: flex-start;
+        }
+        .libro-card img {
+            border-radius: 10px;
+            height: 400px;
+            width: 260px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .libro-details {
+            flex: 1;
+        }
+        .libro-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .libro-author {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .libro-description {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .libro-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .libro-table th, .libro-table td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .libro-table th {
+            background-color: #f7f7f7;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #B10000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="libro-container">
+        <div class="libro-card">
+            <img th:src="${libro.imagenUrl}" src="https://via.placeholder.com/260x400" alt="Imagen del libro">
+            <div class="libro-details">
+                <div class="libro-title" th:text="${libro.titulo}">Fieras familiares</div>
+                <div class="libro-author" th:text="${libro.autor}">Andrés Cota Hiriart</div>
+                <div class="libro-description" th:text="${libro.descripcion}">
+                    ¿Qué debes hacer si una serpiente pitón intenta morderte? ¿Y si te encuentras con un cocodrilo en tu salón? En Fieras familiares, el zoólogo y escritor Andrés Cota Hiriart relata sus vivencias con los insólitos animales que le han acompañado a lo largo de su vida...
+                </div>
+                <table class="libro-table">
+                    <tr>
+                        <th>Género</th>
+                        <td th:text="${libro.genero}"></td>
+                    </tr>
+                    <tr>
+                        <th>Editorial</th>
+                        <td th:text="${libro.editorial}"></td>
+                    </tr>
+                    <tr>
+                        <th>Año de publicación</th>
+                        <td th:text="${libro.anoPublicacion}"></td>
+                    </tr>
+                    <tr>
+                        <th>ISBN</th>
+                        <td th:text="${libro.isbn}"></td>
+                    </tr>
+                    <tr>
+                        <th>Presentación</th>
+                        <td th:text="${libro.presentacion}"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº páginas</th>
+                        <td th:text="${libro.numeroPaginas}"></td>
+                    </tr>
+                    <tr>
+                        <th>Edades</th>
+                        <td th:text="${libro.edades}"></td>
+                    </tr>
+                </table>
+                <a th:href="@{/prestamos/new/{id}(id=${libro.id})}" class="btn">Prestar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

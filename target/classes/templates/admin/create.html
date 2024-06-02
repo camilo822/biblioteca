@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Administrador</title>
+    <style>
+        body {
+           background: url('https://cdn.pixabay.com/photo/2024/04/19/12/13/ai-generated-8706225_1280.png') no-repeat center center;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #e0e7ff;
+            margin: 20px 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .form-header {
+            background: url('https://img.freepik.com/vector-gratis/fondo-abstracto-grunge-amarillo-brillante_1055-8116.jpg?t=st=1716131623~exp=1716135223~hmac=513966602c830d7b6cc29eeb9397e0ae95aa56fd3e9f0e6fd34a6ad3a41391ef&w=740') no-repeat center center;
+            background-size: cover;
+            height: 150px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            position: relative;
+        }
+
+        .form-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        form {
+            margin-top: 50px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group div {
+            width: 48%;
+        }
+
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e03e4e;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <img src="https://img.freepik.com/vector-premium/icono-rojo_1076610-12407.jpg?w=740" alt="Profile Picture">
+        </div>
+        <form th:action="@{/admin/create}" th:object="${admin}" method="post">
+            <div class="form-group">
+                <div>
+                    <label for="nombres">Nombres</label>
+                    <input type="text" id="nombres" th:field="*{nombres}" />
+                </div>
+                <div>
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" th:field="*{apellidos}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" th:field="*{username}" />
+                </div>
+                <div>
+                    <label for="correo">Correo</label>
+                    <input type="text" id="correo" th:field="*{correo}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" th:field="*{password}" />
+                </div>
+                <div>
+                    <label for="confirmarpassword">Confirmar contraseña</label>
+                    <input type="password" id="confirmarpassword" th:field="*{confirmarpassword}" />
+                </div>
+            </div>
+            <label for="celular">Numero de Celular</label>
+            <input type="text" id="celular" th:field="*{celular}" />
+
+            <div class="form-buttons">
+                <button type="submit">Registrar</button>
+                <a th:href="@{/admin/list}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

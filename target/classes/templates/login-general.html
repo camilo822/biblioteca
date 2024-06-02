@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login de Usuario - Librería Nacional</title>
+	    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .left {
+            background-color: #002d72;
+            color: white;
+            padding: 50px;
+            width: 50%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .left h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .left p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .left img {
+            width: 150px; /* Aumentar el tamaño del logo */
+            margin-bottom: 20px;
+        }
+        .left .social-icons {
+            margin-top: 20px;
+        }
+        .left .social-icons a {
+            margin: 0 10px;
+        }
+        .left .social-icons img {
+            width: 30px;
+        }
+        .right {
+            background-color: white;
+            padding: 50px;
+            width: 50%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+        }
+        .back-link a {
+            color: #002d72;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .right h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .right form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .right form input {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 100%;
+        }
+        .right form button {
+            padding: 10px;
+            background-color: #c70000;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .right form button:hover {
+            background-color: #a50000;
+        }
+        .right .register-link {
+            margin-top: 15px;
+        }
+        .right .register-link a {
+            color: #002d72;
+            text-decoration: none;
+        }
+        .right .register-link a:hover {
+            text-decoration: underline;
+        }
+        .right .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .right .forgot-password a {
+            color: #002d72;
+            text-decoration: none;
+        }
+        .right .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="./img/111.png" alt="Logo">
+            <h1>¡Más de 200.000 títulos!</h1>
+            <p>Ahora puedes ver tus libros por internet desde la comodidad de tu casa o oficina a través de nuestra Biblioteca Virtual.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="./img/face.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank">
+                    <img src="./img/insta.png" alt="Instagram">
+                </a>
+                <a href="https://www.twitter.com" target="_blank">
+                    <img src="./img/x.png" alt="Twitter">
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="back-link">
+                <a th:href="@{/}">← Volver</a>
+            </div>
+            <h2>Inicia sesión en Bibliocosmos</h2>
+            <form th:action="@{/login}" method="post">
+                <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <p class="register-link">¿Aún no tienes una cuenta? <a th:href="@{usuarios/registro}">Regístrate</a></p>
+        </div>
+    </div>
+</body>
+</html>

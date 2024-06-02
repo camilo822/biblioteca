@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Préstamos</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header .logout {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+        }
+        .main {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar {
+            background-color: #333;
+            width: 200px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            padding: 20px 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a img {
+            margin-right: 10px;
+            max-width: 24px;
+        }
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        .content {
+            flex: 1;
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg'); /* Cambia esta línea */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .section {
+            width: 100%;
+            max-width: 1050px;
+            margin-bottom: 20px;
+            background-color: #fff; /* Aplica el fondo blanco a la sección */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .section h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+        .section table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Fijar el ancho de la tabla */
+        }
+        .section th, .section td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word; /* Permite dividir palabras largas */
+            max-width: 200px; /* Ancho máximo ajustable */
+            overflow: hidden; /* Controla el desbordamiento */
+            text-overflow: ellipsis; /* Añade puntos suspensivos en caso de desbordamiento */
+        }
+        .section td {
+            max-width: 150px; /* Ancho máximo ajustable para las celdas de acciones */
+            overflow: hidden; /* Controla el desbordamiento */
+            text-overflow: ellipsis; /* Añade puntos suspensivos en caso de desbordamiento */
+        }
+        .section tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section tr:hover {
+            background-color: #ddd;
+        }
+        .section td a {
+            display: inline-block;
+            white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+            margin: 0; /* Ajusta el margen si es necesario */
+            text-decoration: none; /* Quita la subrayado */
+            color: inherit; /* Mantiene el color del texto */
+        }
+        .section td a:hover {
+            text-decoration: underline;
+        }
+        .section .create-link {
+            margin-top: 10px;
+        }
+        .create-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #b10000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+        }
+        .create-link:hover {
+            background-color: #0056b3;
+        }
+        .action-button {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .action-button.edit {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .action-button.delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Panel Administrador</h1>
+            <a th:href="@{/}" class="logout">Cerrar sesión</a>
+        </header>
+        <div class="main">
+            <nav class="sidebar">
+                <ul>
+                    <li><a th:href="@{/admin/list}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Administradores</a></li>
+                    <li><a th:href="@{/usuarios/}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Usuarios</a></li>
+                    <li><a th:href="@{/libros}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Libros</a></li>
+                    <li><a th:href="@{/prestamos}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Préstamos</a></li>
+                </ul>
+            </nav>
+            <section class="content">
+                <div class="section">
+                    <h2>Listado de Préstamos</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título del Libro</th>
+                                <th>Autor</th>
+                                <th>Solicitante</th>
+                                <th>Correo Electrónico</th>
+                                <th>Fecha de Solicitud</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Duración (días)</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="prestamo : ${prestamos}">
+                                <td th:text="${prestamo.tituloLibro}"></td>
+                                <td th:text="${prestamo.autorLibro}"></td>
+                                <td th:text="${prestamo.nombreSolicitante}"></td>
+                                <td th:text="${prestamo.correoElectronico}"></td>
+                                <td th:text="${prestamo.fechaSolicitud}"></td>
+                                <td th:text="${prestamo.fechaInicioPrestamo}"></td>
+                                <td th:text="${prestamo.duracionPrestamo}"></td>
+                                <td>
+                                    <a th:href="@{/prestamos/editar/{id}(id=${prestamo.id})}" class="action-button edit">Editar</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/prestamos/eliminar/{id}(id=${prestamo.id})}" class="action-button delete" th:onclick="'return confirm(\'¿Está seguro de eliminar este préstamo?\');'">Eliminar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a th:href="@{/prestamos/nuevo}" class="create-link">Crear Nuevo Préstamo</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

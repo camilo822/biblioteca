@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Ensure the body takes full height */
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling outside the container */
+        }
+
+        .container-fluid {
+            padding: 0;
+            height: 100%;
+            display: flex;
+        }
+
+        .left-side {
+            background-color: #002D72;
+            color: white;
+            text-align: center;
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            overflow-y: auto; /* Allow vertical scrolling if needed */
+        }
+
+        .left-side .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .left-side h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .left-side p {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .left-side .social-media a img {
+            width: 30px;
+            margin: 0 10px;
+        }
+
+        .right-side {
+            padding: 10px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Start from the top */
+            height: 100%;
+            overflow-y: auto; /* Allow vertical scrolling */
+            align-items: center; /* Center content horizontally */
+        }
+
+        .right-side .header {
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            align-items: center;
+            margin-bottom: 20px; /* Adjust margin bottom */
+            margin-top: 0; /* Adjust margin top */
+            width: 100%;
+            padding-right: 30px; /* Adjust padding */
+        }
+
+        .right-side .header .no-select {
+            color: #007BFF;
+            text-decoration: none;
+            margin-right: 10px; /* Adjust spacing between elements */
+        }
+
+        .right-side .header button {
+            border: 1px solid #007BFF;
+            color: #007BFF;
+            background: none;
+            border-radius: 5px;
+            padding: 8px 20px; /* Adjust button padding */
+        }
+
+        .right-side h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        form {
+            max-width: 500px;
+            min-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        form label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            width: 100%; /* Make labels full width for consistent alignment */
+            text-align: left;
+            display: block; /* Ensure labels are displayed as block elements */
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"],
+        form select
+        {
+            width: calc(100% - 20px); /* Adjust width to compensate for padding */
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding is included in the width */
+        }
+
+        form button {
+            width: calc(105% - 30px); /* Adjusted to match the other form's button width */
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            background-color: #c70000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        form button:hover {
+            background-color: #a60000;
+        }
+           
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutters" style="height: 100%; width: 100%;">
+            <div class="col-lg-4 left-side">
+                <div class="content">
+                    <img src="../img/111.png" alt="Logo" class="logo">
+                    <h1>¡Más de 200.000 títulos!</h1>
+                    <p>Ahora puedes leer tus libros por internet desde la comodidad de tu casa u oficina a través de nuestra Biblioteca Virtual.</p>
+                    <p>Síguenos en redes sociales</p>
+                    <div class="social-media">
+                        <a href="https://www.facebook.com" target="_blank">
+                            <img src="../img/face.png" alt="Facebook">
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank">
+                            <img src="../img/insta.png" alt="Instagram">
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank">
+                            <img src="../img/x.png" alt="Twitter">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 right-side">
+                <div class="header">
+                    <a class="no-select" style="color: #c70000;">¿Ya tienes una cuenta?</a>
+                    <a th:href="@{/login}" class="btn btn-outline-danger">INICIAR SESIÓN</a>
+                </div>
+
+                <h2>Registro de Usuario</h2>
+
+                <form action="#" th:action="@{/usuarios/registrar}" th:object="${usuario}" method="post">
+                    <div class="form-group">
+    					<label for="tipoDocumento">Tipo de Documento:</label>
+    					<select id="tipoDocumento" name="tipoDocumento" th:field="*{tipoDocumento}" required>
+        					<option value="DNI">CC</option>
+        					<option value="Pasaporte">Pasaporte</option>
+    					</select>
+					</div>
+                    <div class="form-group">
+                        <label for="numeroDocumento">Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" name="numeroDocumento" th:field="*{numeroDocumento}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" name="nombres" th:field="*{nombres}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" th:field="*{apellidos}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="celular">Celular:</label>
+                        <input type="text" id="celular" name="celular" th:field="*{celular}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo:</label>
+                        <input type="email" id="correo" name="correo" th:field="*{correo}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" th:field="*{password}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar Contraseña:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="privacyPolicy" required>
+                        <label class="form-check-label" for="privacyPolicy">Acepto políticas de privacidad y manejo de datos.</label>
+                    </div>
+
+                    <button type="submit">Registrar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

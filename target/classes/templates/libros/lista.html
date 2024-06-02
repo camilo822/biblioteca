@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Libros</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg'); /* Cambia esta línea */
+            background-size: cover;
+            background-position: center;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header .logout {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .main {
+            display: flex;
+            flex: 1;
+            margin-top: 60px;
+            background-color: inherit;
+        }
+        .sidebar {
+            background-color: #333;
+            margin-top: 0px;
+            width: 200px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding-top: 60px;
+            position: fixed;
+            height: 100vh;
+            top: 0;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            padding: 15px 20px;
+            margin-top: 10px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar ul li:last-child {
+            border-bottom: none;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a img {
+            margin-right: 10px;
+            max-width: 24px;
+        }
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        .content-wrapper {
+            margin-left: 200px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-top: 20px;
+        }
+        .content {
+            flex: 1;
+            
+             background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg'); /* Cambia esta línea */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .section {
+            width: 100%;
+            max-width: 1080px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .section h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+        .section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .section th, .section td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reducir el padding de 12px a 8px */
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+        .section th {
+            background-color: #f2f2f2;
+        }
+        .section tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .section tr:hover {
+            background-color: #ddd;
+        }
+        .section td a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: blue;
+        }
+        .section td a:hover {
+            text-decoration: underline;
+        }
+        .section .create-link {
+            margin-top: 10px;
+        }
+        .create-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #b10000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+        }
+        .create-link:hover {
+            background-color: #A50105;
+        }
+        .action-button {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .action-button.edit {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .action-button.delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .filter-form {
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+        }
+        .filter-form label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .filter-form input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+            max-width: 160px;
+        }
+        .filter-form button {
+            padding: 8px 42px;
+            margin-top: 10px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .filter-form button:hover {
+            background-color: #154372;
+        }
+        .filter-form > div {
+            margin-bottom: 10px;
+        }
+        .dd {
+    max-width: 100px; /* Define un ancho máximo para las imágenes */
+    max-height: 150px; /* Define una altura máxima para las imágenes */
+    width: auto; /* Permite que el ancho se ajuste automáticamente */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+}
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Panel de Administrador</h1>
+            <a th:href="@{/}" class="logout">Cerrar sesión</a>
+        </header>
+        <div class="main">
+            <nav class="sidebar">
+                <ul>
+                    <li><a th:href="@{/admin/list}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Administradores</a></li>
+                    <li><a th:href="@{/usuarios/}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Usuarios</a></li>
+                    <li><a th:href="@{/libros}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Libros</a></li>
+                    <li><a th:href="@{/prestamos}"><img src="https://cdn-icons-png.flaticon.com/512/949/949662.png" alt=""> Préstamos</a></li>
+                </ul>
+                <form class="filter-form" th:action="@{/libros/filtrarAdmin}" method="get">
+                    <div>
+                        <label for="genero">Género:</label>
+                        <input type="text" id="genero" name="genero" placeholder="Ingrese género">
+                    </div>
+                    <div>
+                        <label for="autor">Autor:</label>
+                        <input type="text" id="autor" name="autor" placeholder="Ingrese autor">
+                    </div>
+                    <button type="submit">Filtrar</button>
+                    <a th:href="@{/libros/reset-filtro}" class="create-link">Restablecer</a>
+                </form>
+            </nav>
+            <div class="content-wrapper">
+                <section class="content">
+                    <div class="section">
+                        <h2>Lista de Libros</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <!--<th>ID</th>-->
+                                    <th>Título</th>
+                                    <th>Autor</th>
+                                    <th>Género</th>
+                                    <!--<th>Descripción</th>-->
+                                    <!--<th>Edades</th>-->
+                                    <th>Editorial</th>
+                                    <!--<th>Año de Publicación</th>-->
+                                    <th>ISBN</th>
+                                    <th>Presentación</th>
+                                    <th>Número de Páginas</th>
+                                    <th>Portada</th>
+                                    <th>Editar</th>
+                                    <th>Borrar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="libro : ${libros}">
+                                    <!--<td th:text="${libro.id}"></td>--> 
+                                    <td th:text="${libro.titulo}"></td>
+                                    <td th:text="${libro.autor}"></td>
+                                    <td th:text="${libro.genero}"></td>
+                                   <!-- <td th:text="${libro.descripcion}"></td>-->
+                                    <!--<td th:text="${libro.edades}"></td>-->
+                                    <td th:text="${libro.editorial}"></td>
+                                    <!--<td th:text="${libro.anoPublicacion}"></td>-->
+                                    <td th:text="${libro.isbn}"></td>
+                                    <td th:text="${libro.presentacion}"></td>
+                                    <td th:text="${libro.numeroPaginas}"></td>
+                                    
+                                    <td>
+                                        <img th:src="${libro.imagenUrl}" class="dd" />
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/libros/editar/{id}(id=${libro.id})}" class="action-button edit">Editar</a>
+                                       
+                                    </td>
+                                    <td>
+                                        
+                                        <a th:href="@{/libros/eliminar/{id}(id=${libro.id})}" class="action-button delete" th:onclick="'return confirm(\'¿Está seguro de eliminar este libro?\');'">Eliminar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a th:href="@{/libros/nuevo}" class="create-link">Agregar Nuevo Libro</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
